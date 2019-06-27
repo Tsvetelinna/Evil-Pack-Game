@@ -30,7 +30,7 @@ public class Enemy extends Image {
         initBody();
     }
 
-    private void initBody(){
+    private void initBody() {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(getX(),getY());
         bodyDef.type = BodyDef.BodyType.StaticBody;
@@ -50,6 +50,16 @@ public class Enemy extends Image {
         body.setUserData(this);
 
         bodyShape.dispose();
+    }
+
+
+    @Override
+    public void act(float delta) {
+
+    }
+
+    public void die() {
+
     }
 
 }
