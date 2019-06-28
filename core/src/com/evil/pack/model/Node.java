@@ -10,12 +10,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.evil.pack.EvilPackGame;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Node extends Image{
     public float node_x;
     public float node_y;
     public boolean hasApple = true;
-//    ArrayList<Node> neighg =  new ArrayList<Node>();
+    List<Node> neighbours =  new ArrayList<Node>();
 
 
     private EvilPackGame packGame;
@@ -36,7 +37,10 @@ public class Node extends Image{
         this.setHeight(height);
         this.packGame = packGame;
 //        this.physicWorld = physicWorld;
+    }
 
+    public void addNeighbour(Node node) {
+        neighbours.add(node);
     }
 
     @Override

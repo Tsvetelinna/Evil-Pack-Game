@@ -39,18 +39,185 @@ public class GameWorld {
         this.stage = new Stage(new StretchViewport(worldWidth,EvilPackGame.WORLD_HEIGHT));
 
         this.stage.addActor(player);
-        for (int i = 0; i < 10; i++ )
-        {
-            for (int j = 0; j < 7; j++ )
-            {
-                this.board.add(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                        j*1.8f+0.2f, i*1.8f+3,1,1));
+
+
+        for (int i = 0; i < 10; i++ ) {
+
+            for (int j = 0; j < 7; j++ ) {
+
+                if(isRightNum(i) || isRightNum(j)) {
+                    Node node = new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                            j*1.8f+0.2f, i*1.8f+3,1,1);
+
+                    if(i == 0 && j == 0) {
+                        //Node 0 1
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                1*1.8f+0.2f, 0*1.8f+3,1,1));
+
+                        //Node 1 0
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                0*1.8f+0.2f, 1*1.8f+3,1,1));
+                    }
+
+                     if(i == 0 && j == 6) {
+                         //Node 0 5
+                         node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                 5*1.8f+0.2f, 0*1.8f+3,1,1));
+
+                         //Node 1 6
+                         node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                 6*1.8f+0.2f, 1*1.8f+3,1,1));
+                     }
+
+                    if(i == 9 && j == 0) {
+                        //Node 9 1
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                1*1.8f+0.2f, 9*1.8f+3,1,1));
+
+                        //Node 8 0
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                0*1.8f+0.2f, 8*1.8f+3,1,1));
+                    }
+
+
+                    if(i == 9 && j == 6) {
+                        //Node 9 5
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                5*1.8f+0.2f, 9*1.8f+3,1,1));
+
+                        //Node 8 6
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                6*1.8f+0.2f, 8*1.8f+3,1,1));
+                    }
+
+                    if(i == 0 && j == 3) {
+
+                        //Node 0 2
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                2*1.8f+0.2f, 0*1.8f+3,1,1));
+
+                        //Node 0 4
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                4*1.8f+0.2f, 0*1.8f+3,1,1));
+
+                        //Node 1 3
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                3*1.8f+0.2f, 1*1.8f+3,1,1));
+                    }
+
+                    if(i == 9 && j == 3) {
+
+                        //Node 9 2
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                2*1.8f+0.2f, 9*1.8f+3,1,1));
+
+                        //Node 9 4
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                4*1.8f+0.2f, 9*1.8f+3,1,1));
+
+                        //Node 8 3
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                3*1.8f+0.2f, 8*1.8f+3,1,1));
+                    }
+
+                    if(j == 3 && (i == 3 || i == 6)) {
+
+                        //Node i-1 3
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                3*1.8f+0.2f, (i-1)*1.8f+3,1,1));
+
+                        //Node i+1 3
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                3*1.8f+0.2f, (i+1)*1.8f+3,1,1));
+
+                        //Node i 2
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                2*1.8f+0.2f, i*1.8f+3,1,1));
+
+                        //Node i 4
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                4*1.8f+0.2f, i*1.8f+3,1,1));
+
+                    }
+
+
+                    if(j == 0 && (i == 3 || i == 6)) {
+
+                        //Node i 1
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                1*1.8f+0.2f, i*1.8f+3,1,1));
+
+                        //Node i-1 0
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                0*1.8f+0.2f, (i-1)*1.8f+3,1,1));
+
+                        //Node i+1 0
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                0*1.8f+0.2f, (i+1)*1.8f+3,1,1));
+                    }
+
+                    if(j == 6 && (i == 3 || i == 6)) {
+
+                        //Node i 5
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                5*1.8f+0.2f, i*1.8f+3,1,1));
+
+                        //Node i-1 6
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                6*1.8f+0.2f, (i-1)*1.8f+3,1,1));
+
+                        //Node i+1 6
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                6*1.8f+0.2f, (i+1)*1.8f+3,1,1));
+                    }
+
+
+                    if(isRightNum(i) && !isRightNum(j)) {
+                        //Node i j-1
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                (j-1)*1.8f+0.2f, i*1.8f+3,1,1));
+
+                        //Node i j+1
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                (j+1)*1.8f+0.2f, i*1.8f+3,1,1));
+                    }
+
+                    if(!isRightNum(i) && isRightNum(j)) {
+                        //Node i-1 j
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                j*1.8f+0.2f, (i-1)*1.8f+3,1,1));
+
+                        //Node i+1 j
+                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                                j*1.8f+0.2f, (i+1)*1.8f+3,1,1));
+                    }
+
+                    this.board.add(node);
+
+                }
             }
         }
 
+/*
+        for (int i = 0; i < 10; i++ ) {
 
-        for(Node n : board)
-        {
+            for (int j = 0; j < 7; j++ ) {
+
+                if(isRightNum(i) || isRightNum(j)) {
+                    Node node = new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                            j*1.8f+0.2f, i*1.8f+3,1,1);
+
+
+                    this.board.add(node);
+
+                }
+            }
+        }
+
+*/
+
+
+        for(Node n : board) {
 
             this.stage.addActor(n);
         }
@@ -60,6 +227,11 @@ public class GameWorld {
 
 
         this.score = 0;
+    }
+
+    boolean isRightNum(int num) {
+
+        return (num == 0 || num == 3 || num == 6 || num == 9);
     }
 
 
