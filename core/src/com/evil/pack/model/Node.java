@@ -13,8 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Node extends Image{
+    public int x;
+    public int y;
+    public int id;
     public float node_x;
     public float node_y;
+
     public boolean hasApple = true;
     List<Node> neighbours =  new ArrayList<Node>();
 
@@ -23,16 +27,17 @@ public class Node extends Image{
 //    private World physicWorld;
 //    private Body body;
 
-    public Node(EvilPackGame packGame, Texture appearance, float x, float y,
-                  float width, float height) {
+    public Node(EvilPackGame packGame, Texture appearance, int x, int y,
+                  float width, float height, int id) {
 
         super(appearance);
-
-        this.node_x = x;
-        this.node_y = y;
-        this.setX(x);
-        this.setY(y);
-        this.setOrigin(x,y);
+        this.x = x;
+        this.y = y;
+        this.node_x = x*1.8f+0.2f;
+        this.node_y = y*1.8f+3;
+        this.setX(this.node_x);
+        this.setY(this.node_y);
+        this.setOrigin(this.node_x, this.node_y);
         this.setWidth(width);
         this.setHeight(height);
         this.packGame = packGame;

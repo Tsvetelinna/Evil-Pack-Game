@@ -14,7 +14,9 @@ import com.evil.pack.model.Enemy;
 import com.evil.pack.model.Node;
 import com.evil.pack.model.Player;
 
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GameWorld {
@@ -22,10 +24,11 @@ public class GameWorld {
     private World physicWorld;
     private Player player;
     private Stage stage;
-    private List<Enemy> enemies;
-    private List<Node> board = new ArrayList<Node>();
+    private List<Enemy> enemies = new ArrayList<Enemy>();
+    private ArrayList<Node> board = new ArrayList<Node>();
     private float worldWidth;
     private int score;
+    private int iteratatble[][] =  new int[10][7];
 
     public GameWorld(EvilPackGame packGame){
         this.packGame = packGame;
@@ -34,204 +37,19 @@ public class GameWorld {
         this.player = new Player(packGame,physicWorld,packGame.assets.manager.get(Assets.player, Texture.class),
                 0.25f,EvilPackGame.WORLD_HEIGHT/2,1,1);
 
+
+
         float ratio = (float) Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth();
         this.worldWidth = EvilPackGame.WORLD_HEIGHT / ratio;
         this.stage = new Stage(new StretchViewport(worldWidth,EvilPackGame.WORLD_HEIGHT));
 
         this.stage.addActor(player);
 
-
-        for (int i = 0; i < 10; i++ ) {
-
-            for (int j = 0; j < 7; j++ ) {
-
-                if(isRightNum(i) || isRightNum(j)) {
-                    Node node = new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                            j*1.8f+0.2f, i*1.8f+3,1,1);
-
-                    if(i == 0 && j == 0) {
-                        //Node 0 1
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                1*1.8f+0.2f, 0*1.8f+3,1,1));
-
-                        //Node 1 0
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                0*1.8f+0.2f, 1*1.8f+3,1,1));
-                    }
-
-                     if(i == 0 && j == 6) {
-                         //Node 0 5
-                         node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                 5*1.8f+0.2f, 0*1.8f+3,1,1));
-
-                         //Node 1 6
-                         node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                 6*1.8f+0.2f, 1*1.8f+3,1,1));
-                     }
-
-                    if(i == 9 && j == 0) {
-                        //Node 9 1
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                1*1.8f+0.2f, 9*1.8f+3,1,1));
-
-                        //Node 8 0
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                0*1.8f+0.2f, 8*1.8f+3,1,1));
-                    }
-
-
-                    if(i == 9 && j == 6) {
-                        //Node 9 5
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                5*1.8f+0.2f, 9*1.8f+3,1,1));
-
-                        //Node 8 6
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                6*1.8f+0.2f, 8*1.8f+3,1,1));
-                    }
-
-                    if(i == 0 && j == 3) {
-
-                        //Node 0 2
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                2*1.8f+0.2f, 0*1.8f+3,1,1));
-
-                        //Node 0 4
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                4*1.8f+0.2f, 0*1.8f+3,1,1));
-
-                        //Node 1 3
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                3*1.8f+0.2f, 1*1.8f+3,1,1));
-                    }
-
-                    if(i == 9 && j == 3) {
-
-                        //Node 9 2
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                2*1.8f+0.2f, 9*1.8f+3,1,1));
-
-                        //Node 9 4
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                4*1.8f+0.2f, 9*1.8f+3,1,1));
-
-                        //Node 8 3
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                3*1.8f+0.2f, 8*1.8f+3,1,1));
-                    }
-
-                    if(j == 3 && (i == 3 || i == 6)) {
-
-                        //Node i-1 3
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                3*1.8f+0.2f, (i-1)*1.8f+3,1,1));
-
-                        //Node i+1 3
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                3*1.8f+0.2f, (i+1)*1.8f+3,1,1));
-
-                        //Node i 2
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                2*1.8f+0.2f, i*1.8f+3,1,1));
-
-                        //Node i 4
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                4*1.8f+0.2f, i*1.8f+3,1,1));
-
-                    }
-
-
-                    if(j == 0 && (i == 3 || i == 6)) {
-
-                        //Node i 1
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                1*1.8f+0.2f, i*1.8f+3,1,1));
-
-                        //Node i-1 0
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                0*1.8f+0.2f, (i-1)*1.8f+3,1,1));
-
-                        //Node i+1 0
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                0*1.8f+0.2f, (i+1)*1.8f+3,1,1));
-                    }
-
-                    if(j == 6 && (i == 3 || i == 6)) {
-
-                        //Node i 5
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                5*1.8f+0.2f, i*1.8f+3,1,1));
-
-                        //Node i-1 6
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                6*1.8f+0.2f, (i-1)*1.8f+3,1,1));
-
-                        //Node i+1 6
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                6*1.8f+0.2f, (i+1)*1.8f+3,1,1));
-                    }
-
-
-                    if(isRightNum(i) && !isRightNum(j)) {
-                        //Node i j-1
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                (j-1)*1.8f+0.2f, i*1.8f+3,1,1));
-
-                        //Node i j+1
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                (j+1)*1.8f+0.2f, i*1.8f+3,1,1));
-                    }
-
-                    if(!isRightNum(i) && isRightNum(j)) {
-                        //Node i-1 j
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                j*1.8f+0.2f, (i-1)*1.8f+3,1,1));
-
-                        //Node i+1 j
-                        node.addNeighbour(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                                j*1.8f+0.2f, (i+1)*1.8f+3,1,1));
-                    }
-
-                    this.board.add(node);
-
-                }
-            }
-        }
-
-/*
-        for (int i = 0; i < 10; i++ ) {
-
-            for (int j = 0; j < 7; j++ ) {
-
-                if(isRightNum(i) || isRightNum(j)) {
-                    Node node = new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
-                            j*1.8f+0.2f, i*1.8f+3,1,1);
-
-
-                    this.board.add(node);
-
-                }
-            }
-        }
-
-*/
-
-
-        for(Node n : board) {
-
-            this.stage.addActor(n);
-        }
-
         this.initBoard();
         this.initEnemies();
 
 
         this.score = 0;
-    }
-
-    boolean isRightNum(int num) {
-
-        return (num == 0 || num == 3 || num == 6 || num == 9);
     }
 
 
@@ -245,15 +63,52 @@ public class GameWorld {
     }
 
     public void update(){
+        this.stage.act();
 
     }
 
-    void initBoard() {
+    private boolean isRightNum(int num) {
 
+        return (num == 0 || num == 3 || num == 6 || num == 9);
+    }
+
+
+    private void initBoard()
+    {
+        for (int[] row: iteratatble)
+            Arrays.fill(row, -1);
+
+        Texture appleTexture = packGame.assets.manager.get(Assets.apple, Texture.class);
+        int id = 0;
+        for (int i = 0; i < 10; i++ )
+        {
+            for (int j = 0; j < 7; j++ )
+            {
+                if(isRightNum(i) || isRightNum(j))
+                {
+                    Node node = new Node(packGame,appleTexture, j, i,1,1, id);
+                    this.iteratatble[i][j] = id;
+                    this.board.add(node);
+                    id++;
+                }
+            }
+        }
+        for(Node n : board) {
+            this.stage.addActor(n);
+        }
     }
 
     void initEnemies() {
+        Texture texture = packGame.assets.manager.get(Assets.enemy, Texture.class);
 
+        for (int i = 0; i < 30; i+=4) {
+            Node start_node = this.board.get(i);
+            enemies.add(new Enemy(packGame, texture, this.board, this.iteratatble,   start_node));
+
+        }
+        for(Enemy e : enemies) {
+            this.stage.addActor(e);
+        }
     }
 
 }
