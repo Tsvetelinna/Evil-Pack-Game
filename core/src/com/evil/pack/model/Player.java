@@ -26,7 +26,7 @@ public class Player extends Image {
         this.setHeight(height);
         this.packGame = packGame;
         this.physicWorld = physicWorld;
-        this.initBody();
+//        this.initBody();
     }
 
     private void initBody(){

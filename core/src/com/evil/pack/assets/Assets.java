@@ -8,9 +8,11 @@ public class Assets {
     public AssetManager manager;
 
     public static String badlogic = "img/badlogic.jpg";
-    public static String apple = "apple/apple.jpg";
-    public static String player = "player/player.jpg";
-    public static String enemy = "deer/deer.jpg";
+    public static String menu_background = "img/icence.jpg";
+    public static String background = "background/grass.jpg";
+    public static String apple = "apple/apple.png";
+    public static String player = badlogic;
+    public static String enemy = "deer/deer.png";
 
     public Assets(){
 
@@ -23,6 +25,8 @@ public class Assets {
         manager.load(apple, Texture.class);
         manager.load(player, Texture.class);
         manager.load(enemy, Texture.class);
+        manager.load(menu_background, Texture.class);
+        manager.load(background, Texture.class);
     }
 
     public void dispose(){

@@ -14,6 +14,7 @@ import com.evil.pack.model.Enemy;
 import com.evil.pack.model.Node;
 import com.evil.pack.model.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameWorld {
@@ -22,7 +23,7 @@ public class GameWorld {
     private Player player;
     private Stage stage;
     private List<Enemy> enemies;
-    private List<Node> board;
+    private List<Node> board = new ArrayList<Node>();
     private float worldWidth;
     private int score;
 
@@ -38,15 +39,37 @@ public class GameWorld {
         this.stage = new Stage(new StretchViewport(worldWidth,EvilPackGame.WORLD_HEIGHT));
 
         this.stage.addActor(player);
+        for (int i = 0; i < 10; i++ )
+        {
+            for (int j = 0; j < 7; j++ )
+            {
+                this.board.add(new Node(packGame,packGame.assets.manager.get(Assets.apple, Texture.class),
+                        j*1.8f+0.2f, i*1.8f+3,1,1));
+            }
+        }
+
+
+        for(Node n : board)
+        {
+
+            this.stage.addActor(n);
+        }
 
         this.initBoard();
         this.initEnemies();
 
+
         this.score = 0;
     }
 
-    public void render(){
 
+    private void drawApples()
+    {
+
+    }
+
+    public void render(){
+        this.stage.draw();
     }
 
     public void update(){
