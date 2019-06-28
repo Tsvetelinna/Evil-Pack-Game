@@ -13,6 +13,10 @@ public class Assets {
     public static String apple = "apple/apple.png";
     public static String player = badlogic;
     public static String enemy = "deer/deer.png";
+    //public static String leftButton = "buttons/left.png";
+    //public static String rightButton = "buttons/right.png";
+    //public static String upButton = "buttons/up.png";
+    //public static String downButton = "buttons/down.png";
 
     public Assets(){
 
@@ -27,6 +31,13 @@ public class Assets {
         manager.load(enemy, Texture.class);
         manager.load(menu_background, Texture.class);
         manager.load(background, Texture.class);
+
+        /*
+        manager.load(leftButton, Texture.class);
+        manager.load(rightButton, Texture.class);
+        manager.load(upButton, Texture.class);
+        manager.load(downButton, Texture.class);
+        */
     }
 
     public void dispose(){

@@ -16,7 +16,7 @@ public class Node extends Image{
     public float node_x;
     public float node_y;
     public boolean hasApple = true;
-    List<Node> neighbours =  new ArrayList<Node>();
+    List<Integer> neighbours =  new ArrayList<Integer>();
 
 
     private EvilPackGame packGame;
@@ -39,8 +39,10 @@ public class Node extends Image{
 //        this.physicWorld = physicWorld;
     }
 
-    public void addNeighbour(Node node) {
-        neighbours.add(node);
+    public void addNeighbour(Integer num) {
+
+        neighbours.add(num);
+
     }
 
     @Override

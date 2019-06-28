@@ -33,7 +33,7 @@ public class Enemy extends Image {
     private void initBody() {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(getX(),getY());
-        bodyDef.type = BodyDef.BodyType.StaticBody;
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
 
         body = physicWorld.createBody(bodyDef);
 
