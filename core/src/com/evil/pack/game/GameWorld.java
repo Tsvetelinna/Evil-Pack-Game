@@ -12,6 +12,8 @@ import com.evil.pack.assets.Assets;
 import com.evil.pack.listener.B2dContactListener;
 import com.evil.pack.model.Enemy;
 import com.evil.pack.model.Node;
+
+import com.evil.pack.controller.Controller;
 import com.evil.pack.model.Player;
 
 
@@ -28,14 +30,13 @@ public class GameWorld {
     private ArrayList<Node> board = new ArrayList<Node>();
     private float worldWidth;
     private int score;
+    private Controller controller;
     private int iteratatble[][] =  new int[10][7];
 
     public GameWorld(EvilPackGame packGame){
         this.packGame = packGame;
         this.physicWorld = new World(new Vector2(0,-9.8f),false);
         this.physicWorld.setContactListener(new B2dContactListener());
-        this.player = new Player(packGame,physicWorld,packGame.assets.manager.get(Assets.player, Texture.class),
-                0.25f,EvilPackGame.WORLD_HEIGHT/2,1,1);
 
 
 
@@ -43,26 +44,34 @@ public class GameWorld {
         this.worldWidth = EvilPackGame.WORLD_HEIGHT / ratio;
         this.stage = new Stage(new StretchViewport(worldWidth,EvilPackGame.WORLD_HEIGHT));
 
-        this.stage.addActor(player);
-
+        this.controller = new Controller();
         this.initBoard();
         this.initEnemies();
+        this.player = new Player(packGame,/*physicWorld,*/
+                packGame.assets.manager.get(Assets.player, Texture.class),
+                this.controller,
+                this.board,this.iteratatble,this.board.get(0),1.5f,1.5f);
+        this.stage.addActor(player);
 
 
         this.score = 0;
     }
 
 
-    private void drawApples()
-    {
+    public void handleInput(){
+
 
     }
 
     public void render(){
         this.stage.draw();
+        this.controller.draw();
     }
 
     public void update(){
+//        if(controller.isRightPressed()) {
+//            System.out.println("right pressed");
+//        }
         this.stage.act();
 
     }

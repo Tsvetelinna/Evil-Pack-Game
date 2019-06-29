@@ -23,9 +23,9 @@ public class Enemy extends Image {
     private Body body;
     private Node prevNode;
     private Node targetNode;
+    private Position pos;
     private ArrayList<Node> board;
-    double posX;
-    double posY;
+
     private int[][] iteratatble;
 
 
@@ -67,8 +67,8 @@ public class Enemy extends Image {
         this.prevNode = startNode;
         float x = prevNode.node_x;
         float y = prevNode.node_y;
-        this.posX = x;
-        this.posY = y;
+        this.pos = new Position(x, y);
+
         this.packGame = packGame;
         this.board = board;
         this.targetNode = startNode;
@@ -105,39 +105,12 @@ public class Enemy extends Image {
     }
 
 
-    public void travel( float goalX, float goalY){
-        double destX = goalX - this.posX;
-        double destY = goalY - this.posY;
 
-        double dist = Math.sqrt(destX * destX + destY * destY);
-        destX = destX / dist;
-        destY = destY / dist;
-
-        float speed= 3f;
-        double travelX = destX * speed * Gdx.graphics.getDeltaTime();
-        double travelY = destY * speed * Gdx.graphics.getDeltaTime();
-
-        double distTravel = Math.sqrt(travelX * travelX + travelY * travelY);
-
-
-        if ( distTravel > dist )
-        {
-            this.posX = goalX;
-            this.posY = goalY;
-        }
-        else
-        {
-            this.posX += travelX;
-            this.posY += travelY;
-        }
-
-        setPosition((float)posX, (float)posY);
-    }
 
     @Override
     public void act(float delta) {
 
-        if(posX == targetNode.node_x && posY == targetNode.node_y) {
+        if(this.pos.X == targetNode.node_x && this.pos.Y == targetNode.node_y) {
 
             //eating apple
             targetNode.setColor(0,0,0,0);
@@ -148,7 +121,8 @@ public class Enemy extends Image {
 
         }else
         {
-            travel(targetNode.node_x, targetNode.node_y);
+            this.pos.moveTo(targetNode.node_x, targetNode.node_y);
+            setPosition((float)this.pos.X, (float)this.pos.Y);
         }
     }
 

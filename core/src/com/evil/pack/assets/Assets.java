@@ -7,11 +7,10 @@ public class Assets {
 
     public AssetManager manager;
 
-    public static String badlogic = "img/badlogic.jpg";
-    public static String menu_background = "img/icence.jpg";
-    public static String background = "background/grass.jpg";
+    public static String menu_background = "background/menuScreen.png";
+    public static String background = "background/background.png";
     public static String apple = "apple/apple.png";
-    public static String player = badlogic;
+    public static String player = "player/lion.png";
     public static String enemy = "deer/deer.png";
 
     public Assets(){
@@ -21,7 +20,6 @@ public class Assets {
 
     public void load(){
 
-        manager.load(badlogic, Texture.class);
         manager.load(apple, Texture.class);
         manager.load(player, Texture.class);
         manager.load(enemy, Texture.class);
