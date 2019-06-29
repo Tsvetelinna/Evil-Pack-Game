@@ -139,7 +139,7 @@ public class Controller {
         table.add();
         table.add(upImg).size(upImg.getWidth(), upImg.getHeight());
         table.add();
-        table.row().pad(5, 5, 5, 5);
+        table.row().pad(5, 350, 5, 350);
         table.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight());
         table.add();
         table.add(rightImg).size(rightImg.getWidth(), rightImg.getHeight());
