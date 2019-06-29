@@ -8,24 +8,40 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.evil.pack.EvilPackGame;
+import com.evil.pack.controller.Controller;
+
+import java.util.ArrayList;
 
 public class Player extends Image {
 
     private EvilPackGame packGame;
     private World physicWorld;
     private Body body;
+    private Position pos;
+    private Controller controller;
+    private Node curNode;
+    private ArrayList<Node> board;
+    private int[][] iteratatble;
 
-    public Player(EvilPackGame packGame, World physicWorld, Texture appearance, float x, float y,
-                  float width, float height) {
+    public Player(EvilPackGame packGame, /*World physicWorld,*/ Texture appearance,
+                  Controller controller,
+                  ArrayList<Node> board, int[][] iteratatble,
+                  Node startNode,
+                  float width, float height)
+    {
 
         super(appearance);
-        this.setX(x);
-        this.setY(y);
-        this.setOrigin(x,y);
+        this.controller =  controller;
+        this.iteratatble = iteratatble;
+        this.board = board;
+        this.pos = new Position(startNode.node_x, startNode.node_y);
+        setPosition((float)this.pos.X, (float)this.pos.Y);
+        this.setOrigin((float)pos.X, (float)pos.Y);
         this.setWidth(width);
         this.setHeight(height);
         this.packGame = packGame;
-        this.physicWorld = physicWorld;
+        curNode = startNode;
+//        this.physicWorld = physicWorld;
 //        this.initBody();
     }
 
@@ -52,9 +68,39 @@ public class Player extends Image {
         bodyShape.dispose();
     }
 
+
+    private void move(int x, int y)
+    {
+        if(x >=0 && x < iteratatble[0].length && y >=0 && y < iteratatble.length)
+        {
+            if(iteratatble[y][x] != -1)
+            {
+                Node target = this.board.get(iteratatble[y][x]);
+                pos.moveTo(target.node_x, target.node_y);
+                if(pos.X == target.node_x && pos.Y == target.node_y )
+                {
+                    curNode = target;
+                }
+                setPosition((float)this.pos.X, (float)this.pos.Y);
+            }
+        }
+    }
+
+
     @Override
     public void act(float delta){
-
+        if(this.controller.isRightPressed()) {
+            move(curNode.x + 1, curNode.y);
+        }
+        else if(this.controller.isLeftPressed()) {
+            move(curNode.x - 1, curNode.y);
+        }
+        else if(this.controller.isDownPressed()) {
+            move(curNode.x, curNode.y - 1);
+        }
+        else if(this.controller.isUpPressed()) {
+            move(curNode.x , curNode.y + 1);
+        }
     }
 
     public void die(){

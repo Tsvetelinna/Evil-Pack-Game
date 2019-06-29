@@ -24,13 +24,12 @@ public class EvilPackGame extends Game {
 	public Assets assets;
 	public GAME_STATE gameState;
 
-	SpriteBatch batch;
+	public SpriteBatch batch;
 	Texture img;
 	
 	@Override
 	public void create () {
 		this.assets = new Assets();
-
 		this.setScreen(new MenuScreen(this));
 	}
 
