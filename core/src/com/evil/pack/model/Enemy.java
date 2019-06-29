@@ -1,6 +1,5 @@
 package com.evil.pack.model;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -10,15 +9,10 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.evil.pack.EvilPackGame;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.evil.pack.game.GameWorld;
-
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import sun.security.krb5.internal.ccache.Tag;
 
 public class Enemy extends Image {
 
@@ -29,8 +23,10 @@ public class Enemy extends Image {
     private Node targetNode;
     private Position pos;
     private ArrayList<Node> board;
+    private int id;
 
     private int[][] iteratatble;
+    private List<Integer> enemiesTodie = new ArrayList<Integer>();
     private List<Integer> path =  new ArrayList<Integer>();
 
 
@@ -71,7 +67,7 @@ public class Enemy extends Image {
 
 
     public Enemy(EvilPackGame packGame, World physicWorld, Texture appearance,
-                 ArrayList<Node> board, int[][] iteratatble, Node startNode) {
+                 ArrayList<Node> board, int[][] iteratatble, Node startNode, List<Integer> dieList, int id) {
 
         super(appearance);
         float width=1.5f; float height=1.5f;
@@ -102,13 +98,14 @@ public class Enemy extends Image {
         setOrigin(x,y);
         setWidth(width-(randNum/10));
         setHeight(height-(randNum/10));
-
+        this.enemiesTodie = dieList;
         initBody();
+        this.id = id;
     }
 
     private void initBody() {
         BodyDef bodyDef = new BodyDef();
-        bodyDef.position.set(getX(),getY());
+        bodyDef.position.set((float)this.pos.X, (float)this.pos.Y);
         bodyDef.type = BodyDef.BodyType.StaticBody;
 
         body = physicWorld.createBody(bodyDef);
@@ -129,6 +126,34 @@ public class Enemy extends Image {
     }
 
 
+    private void repostiBody()
+    {
+//        System.out.println("X:"+getX()+" Y:"+getY());
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.position.set((float)this.pos.X, (float)this.pos.Y);
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+
+        this.physicWorld.destroyBody(body);
+
+
+        body = this.physicWorld.createBody(bodyDef);
+
+        PolygonShape bodyShape = new PolygonShape();
+        bodyShape.setAsBox(getWidth() / 2,getHeight() / 2);
+
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = bodyShape;
+        fixtureDef.density = 0.5f;
+        fixtureDef.friction = 0.5f;
+        fixtureDef.restitution = 0.5f;
+
+        body.createFixture(fixtureDef);
+        body.setUserData(this);
+        body.setLinearVelocity(5f,0);
+
+        bodyShape.dispose();
+    }
+
 
 
     @Override
@@ -146,12 +171,23 @@ public class Enemy extends Image {
         {
             this.pos.moveTo(targetNode.node_x, targetNode.node_y);
             setPosition((float)this.pos.X, (float)this.pos.Y);
+            repostiBody();
         }
     }
 
     public void die() {
-        System.out.println("die");
-        this.remove();
+        if(id!=-2)
+        {
+            System.out.println("die");
+            this.remove();
+
+//        System.out.println(id);
+            enemiesTodie.add(id);
+            id = -2;
+//        Gdx.app.
+        }
+
+
     }
 
 }

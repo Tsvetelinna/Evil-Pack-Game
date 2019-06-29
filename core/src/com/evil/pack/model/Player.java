@@ -49,10 +49,37 @@ public class Player extends Image {
 
     private void initBody(){
         BodyDef bodyDef = new BodyDef();
-        bodyDef.position.set(getX(),getY());
+        bodyDef.position.set((float)this.pos.X, (float)this.pos.Y);
         bodyDef.type = BodyDef.BodyType.DynamicBody;
 
         body = physicWorld.createBody(bodyDef);
+
+        PolygonShape bodyShape = new PolygonShape();
+        bodyShape.setAsBox(getWidth() / 2,getHeight() / 2);
+
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = bodyShape;
+        fixtureDef.density = 0.5f;
+        fixtureDef.friction = 0.5f;
+        fixtureDef.restitution = 0.5f;
+
+        body.createFixture(fixtureDef);
+        body.setUserData(this);
+        body.setLinearVelocity(5f,0);
+
+        bodyShape.dispose();
+    }
+
+    private void repostiBody()
+    {
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.position.set((float)this.pos.X, (float)this.pos.Y);
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+
+        this.physicWorld.destroyBody(body);
+
+
+        body = this.physicWorld.createBody(bodyDef);
 
         PolygonShape bodyShape = new PolygonShape();
         bodyShape.setAsBox(getWidth() / 2,getHeight() / 2);
@@ -84,6 +111,7 @@ public class Player extends Image {
                     curNode = target;
                 }
                 setPosition((float)this.pos.X, (float)this.pos.Y);
+                repostiBody();
             }
         }
     }
@@ -105,8 +133,8 @@ public class Player extends Image {
         }
     }
 
-    public void eatDeer(Enemy enemy) {
-
-        GameWorld.getEnemies().remove(enemy);
-    }
+//    public void eatDeer(Enemy enemy) {
+//
+//        GameWorld.getEnemies().remove(enemy);
+//    }
 }

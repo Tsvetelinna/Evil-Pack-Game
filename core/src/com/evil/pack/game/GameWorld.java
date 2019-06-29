@@ -29,8 +29,9 @@ public class GameWorld {
     private World physicWorld;
     private Player player;
     private Stage stage;
-    private static List<Enemy> enemies = new ArrayList<Enemy>();
+    private List<Actor> enemies = new ArrayList<Actor>();
     private ArrayList<Node> board = new ArrayList<Node>();
+    private List<Integer> enemiesToDie = new ArrayList<Integer>();
     private float worldWidth;
     private int score;
     private Controller controller;
@@ -59,22 +60,18 @@ public class GameWorld {
     public void render(){
         this.stage.draw();
         this.controller.draw();
-        this.physicWorld.step(Gdx.graphics.getDeltaTime(),6,2);
+        this.physicWorld.step(Gdx.graphics.getDeltaTime(), 8, 3);
     }
 
     public void update(){
 
         this.stage.act();
 
-        if(hasApples() == false) {
+        if(hasApples() == false ||  enemiesToDie.size() == enemies.size() ) {
             packGame.gameState = EvilPackGame.GAME_STATE.MENU;
             packGame.setScreen(new MenuScreen(packGame));
         }
 
-        if(enemies.isEmpty()) {
-            packGame.gameState = EvilPackGame.GAME_STATE.MENU;
-            packGame.setScreen(new MenuScreen(packGame));
-        }
     }
 
     private boolean isRightNum(int num) {
@@ -92,7 +89,7 @@ public class GameWorld {
         return false;
     }
 
-    public static List<Enemy> getEnemies() {
+    public List<Actor> getEnemies() {
         return enemies;
     }
 
@@ -126,11 +123,11 @@ public class GameWorld {
         Texture texture = packGame.assets.manager.get(Assets.enemy, Texture.class);
 
         for (int i = 0; i < 30; i+=4) {
-            Node start_node = this.board.get(i);
-            enemies.add(new Enemy(packGame, physicWorld, texture, this.board, this.iteratatble, start_node));
+            Node start_node = this.board.get(i+4);
+            enemies.add(new Enemy(packGame, physicWorld, texture, this.board, this.iteratatble, start_node, this.enemiesToDie, i/4));
 
         }
-        for(Enemy e : enemies) {
+        for(Actor e : enemies) {
             this.stage.addActor(e);
         }
     }
