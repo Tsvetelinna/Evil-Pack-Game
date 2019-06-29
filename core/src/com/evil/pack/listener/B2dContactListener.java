@@ -14,12 +14,15 @@ public class B2dContactListener implements ContactListener {
         String classB = contact.getFixtureB().getBody().getUserData().getClass().getName();
 
         if(classA.equals("com.evil.pack.model.Player") && classB.equals("com.evil.pack.model.Enemy")){
-            Enemy enemy = (Enemy)(contact.getFixtureA().getBody().getUserData());
-           // enemy.die();
+
+            Player player = (Player) (contact.getFixtureA().getBody().getUserData());
+            Enemy enemy = (Enemy)(contact.getFixtureB().getBody().getUserData());
+            enemy.die();
         }
         else if(classA.equals("com.evil.pack.model.Enemy") && classB.equals("com.evil.pack.model.Player")){
-            //Player player = (Player)(contact.getFixtureB().getBody().getUserData());
-            //player.die();
+            Enemy enemy = (Enemy)(contact.getFixtureA().getBody().getUserData());
+            Player player = (Player)(contact.getFixtureB().getBody().getUserData());
+            enemy.die();
 
         }
     }

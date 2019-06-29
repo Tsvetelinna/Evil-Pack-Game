@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evil.pack.assets.Assets;
 import com.evil.pack.screens.MenuScreen;
+import com.evil.pack.screens.SplashScreen;
 
 public class EvilPackGame extends Game {
 
@@ -30,7 +31,7 @@ public class EvilPackGame extends Game {
 	@Override
 	public void create () {
 		this.assets = new Assets();
-		this.setScreen(new MenuScreen(this));
+		this.setScreen(new SplashScreen(this));
 	}
 
 	@Override

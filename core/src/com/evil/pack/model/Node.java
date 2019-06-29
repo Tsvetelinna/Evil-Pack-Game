@@ -53,8 +53,8 @@ public class Node extends Image{
 
     }
 
-    public void die(){
-        // packGame.gameState = EvilPackGameGame.GAME_STATE.MENU;
+    public boolean hasApple() {
+        return hasApple;
     }
 
 }

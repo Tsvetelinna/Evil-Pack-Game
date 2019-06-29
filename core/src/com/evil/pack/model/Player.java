@@ -9,8 +9,10 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.evil.pack.EvilPackGame;
 import com.evil.pack.controller.Controller;
+import com.evil.pack.game.GameWorld;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Player extends Image {
 
@@ -23,7 +25,7 @@ public class Player extends Image {
     private ArrayList<Node> board;
     private int[][] iteratatble;
 
-    public Player(EvilPackGame packGame, /*World physicWorld,*/ Texture appearance,
+    public Player(EvilPackGame packGame, World physicWorld, Texture appearance,
                   Controller controller,
                   ArrayList<Node> board, int[][] iteratatble,
                   Node startNode,
@@ -41,8 +43,8 @@ public class Player extends Image {
         this.setHeight(height);
         this.packGame = packGame;
         curNode = startNode;
-//        this.physicWorld = physicWorld;
-//        this.initBody();
+        this.physicWorld = physicWorld;
+        this.initBody();
     }
 
     private void initBody(){
@@ -103,7 +105,8 @@ public class Player extends Image {
         }
     }
 
-    public void die(){
-       // packGame.gameState = EvilPackGameGame.GAME_STATE.MENU;
+    public void eatDeer(Enemy enemy) {
+
+        GameWorld.getEnemies().remove(enemy);
     }
 }
