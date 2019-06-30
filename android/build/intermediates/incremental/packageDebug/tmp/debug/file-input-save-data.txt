@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sat Jun 29 16:11:48 EEST 2019
+#Sun Jun 30 10:10:12 EEST 2019
 17.baseType=DIRECTORY
 4.path=lib/armeabi/libgdx-box2d.so
 25.base=/home/cveti/Desktop/Evil-Pack-Game/android/build/intermediates/merged_assets/debug/mergeDebugAssets/out

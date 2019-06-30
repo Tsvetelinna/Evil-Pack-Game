@@ -133,8 +133,5 @@ public class Player extends Image {
         }
     }
 
-//    public void eatDeer(Enemy enemy) {
-//
-//        GameWorld.getEnemies().remove(enemy);
-//    }
+
 }
